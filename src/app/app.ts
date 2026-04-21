@@ -40,7 +40,7 @@ total: number = 0;
   }
 
   loadWord() {
-    this.http.get('http://localhost:8081/api/word/random')
+    this.http.get('https://demo-app-h5y3.onrender.com/api/word/random')
       .subscribe(data => {
         console.log("API DATA:", data);
         this.word = data;
