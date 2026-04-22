@@ -2,6 +2,8 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
@@ -40,7 +42,7 @@ total: number = 0;
   }
 
   loadWord() {
-    this.http.get('https://demo-app-h5y3.onrender.com/api/word/random')
+    this.http.get(`${environment.apiUrl}/api/word/random`)
       .subscribe(data => {
         console.log("API DATA:", data);
         this.word = data;
