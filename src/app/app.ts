@@ -30,6 +30,7 @@ import { environment } from '../environments/environment';
   `
 })
 export class App {
+  loading: boolean = false;
   score: number = 0;
 total: number = 0;
 
@@ -40,17 +41,19 @@ total: number = 0;
   constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
     this.loadWord();
   }
+loadWord() {
+  this.loading = true;
 
-  loadWord() {
-    this.http.get(`${environment.apiUrl}/api/word/random`)
-      .subscribe(data => {
-        console.log("API DATA:", data);
-        this.word = data;
-        this.userAnswer = '';
-        this.result = '';
-        this.cd.detectChanges();
-      });
-  }
+  this.http.get(`${environment.apiUrl}/api/word/random`)
+    .subscribe(data => {
+      console.log("API DATA:", data);
+      this.word = data;
+      this.userAnswer = '';
+      this.result = '';
+      this.loading = false;
+      this.cd.detectChanges();
+    });
+}
 
 
 checkAnswer() {
