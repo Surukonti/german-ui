@@ -39,3 +39,18 @@
     <b>Answer:</b> {{ word.german }}
   </p>
 </div>
+
+<div>
+  <span *ngFor="let letter of displayWord; let i = index">
+    
+    <input *ngIf="letter === '_'"
+           maxlength="1"
+           [(ngModel)]="userInputs[i]"
+           style="width:30px;text-align:center;" />
+
+    <span *ngIf="letter !== '_'">{{ letter }}</span>
+
+  </span>
+</div>
+
+<button (click)="checkAnswers()">Check</button>
