@@ -1,62 +1,77 @@
 <h1>German Learning App</h1>
+
+<div style="margin-bottom: 15px;">
+  <button (click)="mode='german'">German → English</button>
+  <button (click)="mode='english'">English → German</button>
+  <button (click)="mode='puzzle'">Fill Missing Letters</button>
+</div>
+
 <p>Score: {{ score }} / {{ total }}</p>
 
 <hr />
 
-<!-- 🔄 Loading -->
+<!-- Loading -->
 <div *ngIf="loading">
   <p>Loading word...</p>
 </div>
 
 <div *ngIf="!loading && word">
 
-  <h2>German → English</h2>
+  <!-- ✅ German → English -->
+  <div *ngIf="mode === 'german'">
 
-  <p><b>{{ word.german }}</b></p>
+    <h2>German → English</h2>
 
-  <input [(ngModel)]="userAnswer" placeholder="Type English word" />
-  <button (click)="checkAnswer()">Check</button>
+    <p><b>{{ word.german }}</b></p>
 
-  <p *ngIf="result">{{ result }}</p>
-  <p *ngIf="result"><b>Answer:</b> {{ word.english }}</p>
+    <input [(ngModel)]="userAnswer" placeholder="Type English word" />
+    <button (click)="checkAnswer()">Check</button>
 
-  <hr />
+    <p *ngIf="result">{{ result }}</p>
+    <p *ngIf="result"><b>Answer:</b> {{ word.english }}</p>
 
-
-  <h2>English → German</h2>
-
-  <p><b>{{ word.english }}</b></p>
-
-  <input [(ngModel)]="userAnswerGerman" placeholder="Type German word" />
-  <button (click)="checkGermanAnswer()">Check</button>
-
-  <p *ngIf="resultGerman">{{ resultGerman }}</p>
-  <p *ngIf="resultGerman"><b>Answer:</b> {{ word.german }}</p>
-
-  <hr />
-
-
-  <h2>Fill Missing Letters</h2>
-
-  <div style="font-size: 24px; letter-spacing: 10px; margin-bottom: 10px;">
-    <span *ngFor="let letter of displayWord; let i = index">
-
-      <input *ngIf="letter === '_'"
-             maxlength="1"
-             [(ngModel)]="userInputs[i]"
-             style="width:35px;text-align:center;font-size:20px;" />
-
-      <span *ngIf="letter !== '_'">
-        {{ letter }}
-      </span>
-
-    </span>
   </div>
 
-  <button (click)="checkPuzzle()">Check Puzzle</button>
+  <!-- ✅ English → German -->
+  <div *ngIf="mode === 'english'">
+
+    <h2>English → German</h2>
+
+    <p><b>{{ word.english }}</b></p>
+
+    <input [(ngModel)]="userAnswerGerman" placeholder="Type German word" />
+    <button (click)="checkGermanAnswer()">Check</button>
+
+    <p *ngIf="resultGerman">{{ resultGerman }}</p>
+    <p *ngIf="resultGerman"><b>Answer:</b> {{ word.german }}</p>
+
+  </div>
+
+  <!-- ✅ Puzzle -->
+  <div *ngIf="mode === 'puzzle'">
+
+    <h2>Fill Missing Letters</h2>
+
+    <div style="font-size: 24px; letter-spacing: 10px; margin-bottom: 10px;">
+      <span *ngFor="let letter of displayWord; let i = index">
+
+        <input *ngIf="letter === '_'"
+               maxlength="1"
+               [(ngModel)]="userInputs[i]"
+               style="width:35px;text-align:center;font-size:20px;" />
+
+        <span *ngIf="letter !== '_'">
+          {{ letter }}
+        </span>
+
+      </span>
+    </div>
+
+    <button (click)="checkPuzzle()">Check Puzzle</button>
+
+  </div>
 
   <hr />
-
 
   <button (click)="loadWord()">Next Word</button>
 

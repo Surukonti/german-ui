@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 })
 export class App {
 
+mode: 'german' | 'english' | 'puzzle' = 'german';
+
   word: any;
   loading: boolean = false;
 
